@@ -1,18 +1,4 @@
-*.swp
-*.pyc
-build*
-dist*
-*.egg-info
-.coverage
-coverage.info
-**/.DS_store
-htmlcov
-.vscode/
-xcuserdata/
-
-# Pycharm metadata
-.idea/
-
-# These files are generated, don't put them into source control
-docs/api
-.tox
+**/.DS_Store
+**/Package.resolved
+.swiftpm
+.build

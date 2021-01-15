@@ -1,0 +1,3 @@
+[submodule "OpenTimelineIO"]
+	path = OpenTimelineIO
+	url = https://github.com/PixarAnimationStudios/OpenTimelineIO.git

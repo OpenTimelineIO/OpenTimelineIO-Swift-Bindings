@@ -1,5 +1,16 @@
-CLI Swift Package Manager Example
-=================================
+
+# OpenTimelineIO Swift Bindings
+
+This project provides idiomatic Swift bindings for the open source OpenTimelineIO
+library.
+
+## Prerequisites
+
+Xcode 12.3 is the minimum Xcode requirement in order to get a version of the
+Swift Package Manager that supports hybrid C++/Swift builds.
+
+## CLI Swift Package Manager Example
+====================================
 
 If you copy/download `examples/swift-package-manager` (`examples` is a top-level folder of this repository)
 you can play around with some simple CLI samples that show off building with SPM.
@@ -22,8 +33,8 @@ Then:
     (output)
 ```
     
-OpenTimelineIO Swift Test Suite
-=================================
+## OpenTimelineIO Swift Test Suite
+==================================
 
 You can also build and test the Swift OpenTimelineIO module
 (which requires building the C++ core library, but does not involve Python or any other language)
@@ -47,14 +58,11 @@ from the command line easily as well:
             Executed 57 tests, with 0 failures (0 unexpected) in 1.690 (1.693) seconds
 ```	     
 	 
-Xcode
-=====
-Simply use the Package Manager in Xcode and bring in
-  `https://github.com/davidbaraff/OpenTimelineIO.git` with branch set to `spm`.
+## Use within Xcode
+====================
+
+Use the Package Manager in Xcode and bring in
+  `git@github.com:meshula/OpenTimelineIO-Swift-Bindings.git` with branch set to `main`.
 
 You should see a choice of two C++ products that can be added to your workspace;
 for Swift development, choose the third product named `OpenTimelineIO`.
-
-
-
-

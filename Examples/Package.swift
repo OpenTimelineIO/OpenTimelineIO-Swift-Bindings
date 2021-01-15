@@ -1,4 +1,4 @@
-// swift-tools-version:5.1
+// swift-tools-version:5.3
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -7,13 +7,15 @@ let package = Package(
     name: "otio_examples",
     platforms: [.macOS(.v10_13)],
     dependencies: [
-	.package(url: "https://github.com/davidbaraff/OpenTimelineIO.git", .branch("spm"))
+    .package(name: "OpenTimelineIO", url: "https://github.com/meshula/OpenTimelineIO-Swift-Bindings.git", .branch("Swift_Bindings"))
     ],
     targets: [
 	.target(name: "cxx_opentime_example",
-                dependencies: ["OpenTime_CXX"]),
+                dependencies: [
+                    .product(name: "OpenTime_CXX", package: "OpenTimelineIO")]),
 	.target(name: "cxx_example",
-                dependencies: ["OpenTimelineIO_CXX"]),
+                dependencies: [
+                    .product(name: "OpenTimelineIO_CXX", package: "OpenTimelineIO")]),
 	.target(name: "swift_example",
                 dependencies: ["OpenTimelineIO"])
     ],

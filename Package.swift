@@ -21,7 +21,7 @@ let package = Package(
             path: ".",
             exclude: [
                 "README.md", "LICENSE", "Sources/shims/optionallite-shim.cpp", "Sources/shims/otio_header_root-shim.cpp",
-                "OpenTimelineIO", "Tests", "Sources/objc", "Sources/swift"],
+                "Examples", "OpenTimelineIO", "Tests", "Sources/objc", "Sources/swift"],
             sources: ["Sources/shims/any-shim.cpp"],
             publicHeadersPath:"OpenTimelineIO/src/deps"),
 
@@ -29,7 +29,7 @@ let package = Package(
             path: ".",
             exclude: [
                 "README.md", "LICENSE", "Sources/shims/any-shim.cpp", "Sources/shims/otio_header_root-shim.cpp",
-                "OpenTimelineIO", "Tests", "Sources/objc", "Sources/swift"],
+                "Examples", "OpenTimelineIO", "Tests", "Sources/objc", "Sources/swift"],
             sources: ["Sources/shims/optionallite-shim.cpp"],
             publicHeadersPath:"OpenTimelineIO/src/deps/optional-lite/include"),
 
@@ -37,7 +37,7 @@ let package = Package(
             path: ".",
             exclude: [
                 "README.md", "LICENSE", "Sources/shims/any-shim.cpp", "Sources/shims/optionallite-shim.cpp",
-                "OpenTimelineIO", "Tests", "Sources/objc", "Sources/swift"],
+                "Examples", "OpenTimelineIO", "Tests", "Sources/objc", "Sources/swift"],
             sources: ["Sources/shims/otio_header_root-shim.cpp"],
             publicHeadersPath:"OpenTimelineIO/src"),
 

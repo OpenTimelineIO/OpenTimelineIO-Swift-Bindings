@@ -20,6 +20,8 @@ let package = Package(
         .target(name: "any",
             path: ".",
             exclude: [
+                "CONTRIBUTORS.md", "NOTICE.txt", "CONTRIBUTING.md", "LICENSE.txt", "CODE_OF_CONDUCT.md",
+                "OTIO_CLA_Corporate.pdf", "OTIO_CLA_Individual.pdf",
                 "README.md", "LICENSE", "Sources/shims/optionallite-shim.cpp", "Sources/shims/otio_header_root-shim.cpp",
                 "Examples", "OpenTimelineIO", "Tests", "Sources/objc", "Sources/swift"],
             sources: ["Sources/shims/any-shim.cpp"],
@@ -28,6 +30,8 @@ let package = Package(
         .target(name: "optionallite",
             path: ".",
             exclude: [
+                "CONTRIBUTORS.md", "NOTICE.txt", "CONTRIBUTING.md", "LICENSE.txt", "CODE_OF_CONDUCT.md",
+                "OTIO_CLA_Corporate.pdf", "OTIO_CLA_Individual.pdf",
                 "README.md", "LICENSE", "Sources/shims/any-shim.cpp", "Sources/shims/otio_header_root-shim.cpp",
                 "Examples", "OpenTimelineIO", "Tests", "Sources/objc", "Sources/swift"],
             sources: ["Sources/shims/optionallite-shim.cpp"],
@@ -36,6 +40,8 @@ let package = Package(
         .target(name: "otio_header_root",
             path: ".",
             exclude: [
+                "CONTRIBUTORS.md", "NOTICE.txt", "CONTRIBUTING.md", "LICENSE.txt", "CODE_OF_CONDUCT.md",
+                "OTIO_CLA_Corporate.pdf", "OTIO_CLA_Individual.pdf",
                 "README.md", "LICENSE", "Sources/shims/any-shim.cpp", "Sources/shims/optionallite-shim.cpp",
                 "Examples", "OpenTimelineIO", "Tests", "Sources/objc", "Sources/swift"],
             sources: ["Sources/shims/otio_header_root-shim.cpp"],

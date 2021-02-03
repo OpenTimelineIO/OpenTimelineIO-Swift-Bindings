@@ -37,6 +37,36 @@ public class Timeline : SerializableObjectWithMetadata {
         }
     }
     
+    public var tracks: Stack? {
+        get { return SerializableObject.possiblyFindOrCreate(cxxPtr: timeline_get_tracks(self)) as? Stack }
+        set {
+            // nb: Setting a newValue of nil will cause a crash.
+            // That is consistent with the current Python behavior.
+            /// @TODO revisit nil handling in the C++ code
+            timeline_set_tracks(self, newValue!)
+        }
+    }
+    
+    public var audioTracks: [Track] {
+        get {
+            let stack = tracks
+            if stack != nil {
+                return stack!.children.filter({ ($0 as! Track).kind == "Audio" }) as! [Track]
+            }
+            return []
+        }
+    }
+
+    public var videoTracks: [Track] {
+        get {
+            let stack = tracks
+            if stack != nil {
+                return stack!.children.filter({ ($0 as! Track).kind == "Video" }) as! [Track]
+            }
+            return []
+        }
+    }
+
     public func duration() throws -> RationalTime {
         return try OTIOError.returnOrThrow { RationalTime(timeline_duration(self, &$0)) }
     }

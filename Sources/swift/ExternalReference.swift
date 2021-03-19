@@ -26,9 +26,9 @@ public class ExternalReference : MediaReference {
                   metadata: Metadata.Dictionary.none)
     }
     
-    public var targetURL: URL {
-        get { return URL(fileURLWithPath: external_reference_get_target_url(self)) }
-        set { external_reference_set_target_url(self, newValue.path) }
+    public var targetURL: URL? {
+        get { return URL(string: external_reference_get_target_url(self)) }
+        set { external_reference_set_target_url(self, newValue?.absoluteString ?? "") }
     }
 
     override internal init(_ cxxPtr: CxxSerializableObjectPtr) {

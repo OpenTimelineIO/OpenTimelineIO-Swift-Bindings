@@ -9,8 +9,8 @@ import XCTest
 @testable import OpenTimelineIO
 
 class testSO: XCTestCase {
-    func otioFilePath(_ filename: String) -> String {
-        return Bundle.module.path(forResource: filename, ofType: "")!
+    func otioFilePath(_ filename: String) -> String? {
+        return Bundle.module.path(forResource: filename, ofType: "")
     }
     
     func uniqueTmpFileName(_ basename: String) -> URL {
@@ -24,7 +24,13 @@ class testSO: XCTestCase {
         XCTAssert(so0.schemaName == "SerializableObject")
         XCTAssert(so0.schemaVersion == 1)
         
-        let so1 = try! SerializableObject.fromJSON(filename: otioFilePath("so1.otio"))
+        let path =  otioFilePath("so1.otio")
+        XCTAssert(path != nil)
+        if (path == nil) {
+            return
+        }
+
+        let so1 = try! SerializableObject.fromJSON(filename: path!)
         XCTAssert(so0.isEquivalent(to: so1))
         
         let clip1 = Clip()
@@ -47,7 +53,13 @@ class testSO: XCTestCase {
     }
 
     func test_UnknownSchema() {
-        let so = try! SerializableObject.fromJSON(filename: otioFilePath("unknown1.otio"))
+        let path =  otioFilePath("so1.otio")
+        XCTAssert(path != nil)
+        if (path == nil) {
+            return
+        }
+
+        let so = try! SerializableObject.fromJSON(filename: path!)
         XCTAssert(so.isUnknownSchema)
         let uso = so as! UnknownSchema
         XCTAssert(uso.originalSchemaVersion == 3 && uso.originalSchemaName == "BogusName")

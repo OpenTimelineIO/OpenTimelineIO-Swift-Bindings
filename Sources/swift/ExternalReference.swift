@@ -10,25 +10,28 @@ public class ExternalReference : MediaReference {
         super.init(otio_new_external_reference())
     }
     
-    public convenience init<ST : Sequence>(targetURL: URL? = nil,
+    public convenience init<ST : Sequence>(targetURL: String? = nil,
                                            availableRange: TimeRange? = nil,
                                            metadata: ST? = nil) where ST.Element == Metadata.Dictionary.Element {
         self.init()
         metadataInit(name, metadata)
-        if let targetURL = targetURL {
-            self.targetURL = targetURL
+        if let url = targetURL {
+            self.targetURL = url
+        }
+        if let t = availableRange {
+            self.availableRange = t
         }
     }
     
-    public convenience init(targetURL: URL? = nil,
+    public convenience init(targetURL: String? = nil,
                             availableRange: TimeRange? = nil) {
         self.init(targetURL: targetURL, availableRange: availableRange,
                   metadata: Metadata.Dictionary.none)
     }
     
-    public var targetURL: URL? {
-        get { return URL(string: external_reference_get_target_url(self)) }
-        set { external_reference_set_target_url(self, newValue?.absoluteString ?? "") }
+    public var targetURL: String? {
+        get { external_reference_get_target_url(self) }
+        set { external_reference_set_target_url(self, newValue ?? "") }
     }
 
     override internal init(_ cxxPtr: CxxSerializableObjectPtr) {

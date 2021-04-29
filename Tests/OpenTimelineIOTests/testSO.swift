@@ -24,7 +24,7 @@ class testSO: XCTestCase {
         XCTAssert(so0.schemaName == "SerializableObject")
         XCTAssert(so0.schemaVersion == 1)
         
-        let path =  otioFilePath("so1.otio")
+        let path =  otioFilePath("data/so1.otio")
         XCTAssert(path != nil)
         if (path == nil) {
             return
@@ -53,7 +53,7 @@ class testSO: XCTestCase {
     }
 
     func test_UnknownSchema() {
-        let path =  otioFilePath("so1.otio")
+        let path =  otioFilePath("data/unknown1.otio")
         XCTAssert(path != nil)
         if (path == nil) {
             return

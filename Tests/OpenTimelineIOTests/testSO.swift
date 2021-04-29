@@ -187,9 +187,22 @@ class testSO: XCTestCase {
         
         let item2 = Item(name: item.name, metadata: item.metadata)
         let item3 = Item()
-        XCTAssert(item2.isEquivalent(to: item))
-        XCTAssert(!item2.isEquivalent(to: item3))
         
+        let item4 = Item(name: "item4")
+        item4.metadata["xyz"] = 12
+        
+        let item5 = item2;
+
+        XCTAssert(item.isEquivalent(to: item2))
+        XCTAssert(!item.isEquivalent(to: item3))
+        XCTAssert(!item.isEquivalent(to: item4))
+        XCTAssert(item.isEquivalent(to: item5))
+        XCTAssert(!item2.isEquivalent(to: item3))
+        XCTAssert(!item2.isEquivalent(to: item4))
+        XCTAssert(item2.isEquivalent(to: item5))
+        XCTAssert(!item3.isEquivalent(to: item4))
+        XCTAssert(!item3.isEquivalent(to: item5))
+
         XCTAssert(item.visible)
         XCTAssert(!item.overlapping)
 
@@ -254,7 +267,7 @@ class testSO: XCTestCase {
     func testD0() {
         var v = Metadata.Vector()
         for i in 0..<10 {
-            v.append(i)
+            v.append(Int64(i))
         }
 
         v.replaceSubrange(Range(uncheckedBounds: (0, 0)), with: ["alpha", "beta", "gamma", "delta", "epsilon"])
@@ -310,7 +323,7 @@ class testSO: XCTestCase {
     func testD1() {
         let xx = Clip()
         
-        if let a: Int = xx.metadata["abc"] {
+        if let a: Int64 = xx.metadata["abc"] {
             print("Yes, abc is: ", a)
         }
         xx.metadata["abc"] = 3.2498

@@ -26,7 +26,7 @@ public enum Metadata {
     public enum ValueType: Int {
         case none = 0
         case bool
-        case int
+        case int64
         case double
         case string
         case serializableObject
@@ -374,8 +374,8 @@ public enum Metadata {
                 return NSNull()
             case .bool:
                 return cxxAny.value.b
-            case .int:
-                return Int(cxxAny.value.i)
+            case .int64:
+                return Int64(cxxAny.value.i)
             case .double:
                 return cxxAny.value.d
             case .string:
@@ -410,8 +410,8 @@ public enum Metadata {
             work(createCxxAny(.none, .init(i: 0)))
         case .bool:
             work(createCxxAny(.bool, .init(b: value as! Bool)))
-        case .int:
-            work(createCxxAny(.int, .init(i: Int64(value as! Int))))
+        case .int64:
+            work(createCxxAny(.int64, .init(i: value as! Int64)))
         case .double:
             work(createCxxAny(.double, .init(d: value as! Double)))
         case .string:
@@ -441,7 +441,7 @@ public enum Metadata {
 
 extension NSNull : MetadataValue { public var metadataType: Metadata.ValueType { return .none } }
 extension Bool : MetadataValue { public var metadataType: Metadata.ValueType { return .bool } }
-extension Int : MetadataValue { public var metadataType: Metadata.ValueType { return .int } }
+extension Int64 : MetadataValue { public var metadataType: Metadata.ValueType { return .int64 } }
 extension Double : MetadataValue { public var metadataType: Metadata.ValueType { return .double } }
 extension String : MetadataValue { public var metadataType: Metadata.ValueType { return .string } }
 extension SerializableObject : MetadataValue { public var metadataType: Metadata.ValueType { return .serializableObject } }

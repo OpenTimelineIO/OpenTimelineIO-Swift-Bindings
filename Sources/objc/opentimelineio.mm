@@ -584,6 +584,17 @@ bool composition_trimmed_range_of_child(CxxRetainer* self, CxxRetainer* child,
     return false;
 }
 
+NSArray* composition_children_in_range(CxxRetainer* self, CxxTimeRange tr, CxxErrorStruct* cxxErr) {
+    _AutoErrorHandler aeh(cxxErr);
+    auto container = SO_cast<otio::Composition>(self);
+    std::vector<otio::SerializableObject::Retainer<otio::Composable>> children;
+    children = container->children_in_range(otioTimeRange(tr), &aeh.error_status);
+    auto array = [NSMutableArray new];
+    for (auto c: children) {
+        [array addObject: [NSValue valueWithPointer: c]];
+    }
+    return array;
+}
 
 // MARK: - MediaReference
 bool media_reference_is_missing_reference(CxxRetainer* self) {

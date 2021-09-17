@@ -174,6 +174,8 @@ CxxTimeRange composition_range_of_child(CxxRetainer* self, CxxRetainer* child,
 bool composition_trimmed_range_of_child(CxxRetainer* self, CxxRetainer* child,
                                         CxxTimeRange* tr, CxxErrorStruct* cxxErr);
 
+NSArray* composition_children_in_range(CxxRetainer* self, CxxTimeRange tr, CxxErrorStruct* cxxErr);
+
 // MARK: - MediaReference
 bool media_reference_is_missing_reference(CxxRetainer* self);
 bool media_reference_available_range(CxxRetainer* self, CxxTimeRange*);

@@ -21,7 +21,11 @@ public class Composition : Item {
     public convenience init(name: String? = nil, sourceRange: TimeRange? = nil) {
         self.init(name: name, sourceRange: sourceRange, metadata: Metadata.Dictionary.none)
     }
-    
+
+    override internal init(_ cxxPtr: CxxSerializableObjectPtr) {
+        super.init(cxxPtr)
+    }
+
     lazy var _childrenProperty = { create_composition_children_vector_property(self) }()
     
     public var children: SerializableObject.ImmutableVector<Composable> {
@@ -121,7 +125,9 @@ public class Composition : Item {
         try OTIOError.returnOrThrow { composition_append_child(self, child, &$0) }
     }
 
-    override internal init(_ cxxPtr: CxxSerializableObjectPtr) {
-        super.init(cxxPtr)
+    public func childrenInRange(tr: TimeRange) throws -> [Composable] {
+        let result = try OTIOError.returnOrThrow { composition_children_in_range(self, tr.cxxTimeRange, &$0) }
+        return result as! [Composable]
     }
+
 }

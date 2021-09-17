@@ -7,7 +7,7 @@ import XCTest
 
 import Foundation
 
-class tesExternalReference: XCTestCase {
+class testExternalReference: XCTestCase {
 
     func testAvailableRange() {
         let start_time1 = RationalTime(value: 18, rate: 24)
@@ -30,14 +30,14 @@ class tesExternalReference: XCTestCase {
     
     func testMetadata() {
         let dict = Metadata.Dictionary(arrayLiteral:
-                    ("sheet_index", 3),
+                    ("sheet_index", Int64(3)),
                     ("media", "/sample/path"),
                     ("kind", "sheet"))
 
         let e = ExternalReference(targetURL:"foo.png", availableRange: nil, metadata: dict)
         
         let test_dict = e.metadata
-        let index : Int = test_dict["sheet_index"] as! Int
+        let index = test_dict["sheet_index"] as! Int64
         XCTAssertEqual(index, 3)
     }
     

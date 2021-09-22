@@ -126,8 +126,14 @@ public class Composition : Item {
     }
 
     public func childrenInRange(tr: TimeRange) throws -> [Composable] {
-        let result = try OTIOError.returnOrThrow { composition_children_in_range(self, tr.cxxTimeRange, &$0) }
-        return result as! [Composable]
+        let children_array = try OTIOError.returnOrThrow { composition_children_in_range(self, tr.cxxTimeRange, &$0) }
+        var result = [Composable]()
+        for child in children_array {
+            if let nsptr = child as? NSValue, let cxxPtr = nsptr.pointerValue {
+                result.append(SerializableObject.findOrCreate(cxxPtr: cxxPtr) as! Composable)
+            }
+        }
+        return result
     }
 
 }

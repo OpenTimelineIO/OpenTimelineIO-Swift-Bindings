@@ -206,6 +206,19 @@ public enum Metadata {
     }
 
     public class Vector : CxxAnyVectorMutationStamp, RangeReplaceableCollection, MetadataValue {
+        public required convenience init<S>(_ elements: S) where S : Sequence, Element == S.Element {
+            self.init()
+            self.append(contentsOf: elements)
+        }
+
+        public func append<S>(contentsOf newElements: __owned S) where S : Sequence, Element == S.Element {
+            for element in newElements {
+                Metadata.withCxxAny(element) {
+                    add(atEnd: $0)
+                }
+            }
+        }
+
         public typealias Index = Int
         public typealias Element = Iterator.Element
 

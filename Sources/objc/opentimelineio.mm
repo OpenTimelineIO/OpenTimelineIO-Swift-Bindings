@@ -28,6 +28,7 @@
 #include <opentimelineio/track.h>
 #include <opentimelineio/transition.h>
 #include <opentimelineio/stack.h>
+#include <opentimelineio/stringUtils.h>
 #include <opentimelineio/unknownSchema.h>
 #include <opentimelineio/stringUtils.h>
 #include <opentimelineio/trackAlgorithm.h>
@@ -44,7 +45,7 @@ template <typename T>
 inline T* _Nonnull SO_cast(CxxRetainer const* r) {
     if (!r.retainer.value) {
         fprintf(stderr, "SO_cast [otio-swift] fatal error: dynamic cast to %s failed: underlying ptr is null\n",
-                otio::demangled_type_name(typeid(T)).c_str());
+                otio::type_name_for_error_message(typeid(T)).c_str());
         abort();
     }
 
@@ -54,8 +55,8 @@ inline T* _Nonnull SO_cast(CxxRetainer const* r) {
     }
 
     fprintf(stderr, "SO_cast [otio-swift] fatal error: dynamic cast to %s failed: actual type was %s\n",
-            otio::demangled_type_name(typeid(T)).c_str(),
-            otio::demangled_type_name(r.retainer.value).c_str());
+            otio::type_name_for_error_message(typeid(T)).c_str(),
+            otio::type_name_for_error_message(r.retainer.value).c_str());
     abort();
 }
 

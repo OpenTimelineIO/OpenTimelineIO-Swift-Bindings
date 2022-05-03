@@ -2,8 +2,8 @@
 //  bridger.h
 //  libotio-macos
 //
-//  Created by David Baraff on 12/28/18.
-//
+// SPDX-License-Identifier: Apache-2.0
+// Copyright Contributors to the OpenTimelineIO project
 
 #import <Foundation/Foundation.h>
 #import "errorStruct.h"

@@ -1,9 +1,8 @@
 //
 //  File.swift
-//  
 //
-//  Created by Nick Porcino on 4/29/21.
-//
+// SPDX-License-Identifier: Apache-2.0
+// Copyright Contributors to the OpenTimelineIO project
 
 import XCTest
 @testable import OpenTimelineIO

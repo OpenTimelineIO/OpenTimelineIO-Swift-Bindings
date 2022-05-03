@@ -2,8 +2,8 @@
 //  WrapperCache.swift
 //  otio_macos
 //
-//  Created by David Baraff on 1/24/19.
-//
+// SPDX-License-Identifier: Apache-2.0
+// Copyright Contributors to the OpenTimelineIO project
 
 import Foundation
 import OpenTimelineIO_objc
@@ -14,7 +14,7 @@ internal class WrapperCache<CachedObject: AnyObject> {
     }
     
     var cxxPtrToCachedObject = [UnsafeMutableRawPointer : WeakHolder]()
-    let lock = DispatchQueue(label: "com.pixar.otio.SOWrapperCache-" + String(describing: type(of: CachedObject.self)))
+    let lock = DispatchQueue(label: "io.aswf.otio.SOWrapperCache-" + String(describing: type(of: CachedObject.self)))
     
     func insert(key: UnsafeMutableRawPointer, value: CachedObject) {
         lock.sync { cxxPtrToCachedObject[key] = WeakHolder(cachedObject: value) }

@@ -2,8 +2,9 @@
 //  CxxVectorProperty.h
 //  otio-swift
 //
-//  Created by David Baraff on 3/1/19.
-//
+// SPDX-License-Identifier: Apache-2.0
+// Copyright Contributors to the OpenTimelineIO project
+
 #import <Foundation/Foundation.h>
 #import "CxxRetainer.h"
 

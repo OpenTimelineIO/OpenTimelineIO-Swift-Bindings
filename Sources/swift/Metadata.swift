@@ -2,8 +2,8 @@
 //  Metadata.swift
 //  otio_macos
 //
-//  Created by David Baraff on 2/25/19.
-//
+// SPDX-License-Identifier: Apache-2.0
+// Copyright Contributors to the OpenTimelineIO project
 
 import Foundation
 import OpenTimelineIO_objc

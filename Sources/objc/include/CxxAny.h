@@ -2,8 +2,8 @@
 //  CxxAny.h
 //  otio-swift
 //
-//  Created by David Baraff on 2/21/19.
-//
+// SPDX-License-Identifier: Apache-2.0
+// Copyright Contributors to the OpenTimelineIO project
 
 #import "opentime.h"
 

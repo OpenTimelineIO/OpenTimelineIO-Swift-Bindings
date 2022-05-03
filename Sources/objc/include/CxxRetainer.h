@@ -2,8 +2,8 @@
 //  CxxRetainer.h
 //  otio_macos
 //
-//  Created by David Baraff on 1/17/19.
-//
+// SPDX-License-Identifier: Apache-2.0
+// Copyright Contributors to the OpenTimelineIO project
 
 #import <Foundation/Foundation.h>
 

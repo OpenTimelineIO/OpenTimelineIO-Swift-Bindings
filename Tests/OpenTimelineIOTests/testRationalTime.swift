@@ -2,8 +2,8 @@
 //  macos_Tests.swift
 //  macos_Tests
 //
-//  Created by David Baraff on 1/10/19.
-//
+// SPDX-License-Identifier: Apache-2.0
+// Copyright Contributors to the OpenTimelineIO project
 
 import XCTest
 @testable import OpenTimelineIO

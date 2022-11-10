@@ -40,12 +40,11 @@ You can also build and test the Swift OpenTimelineIO module
 (which requires building the C++ core library, but does not involve Python or any other language)
 from the command line easily as well:
 ```
-    $ git clone https://github.com/OpenTimelineIO/OpenTimelineIO-Swift-Bindings.git --recurse-submodules
+    $ git clone --recurse-submodules https://github.com/OpenTimelineIO/OpenTimelineIO-Swift-Bindings.git
     ...
 
-    $ cd Opentimelineio
-    $ git checkout spm      # omit this once the PR is closed
-    $ swift build	    # optional: swift test will do a build anyway, as needed
+    $ cd OpenTimelineIO-Swift-Bindings
+    $ swift build
     ...
 
     $ swift test
@@ -62,7 +61,7 @@ from the command line easily as well:
 ====================
 
 Use the Package Manager in Xcode and bring in
-  `git@github.com:OpenTimelineIO/OpenTimelineIO-Swift-Bindings.git` with branch set to `main`.
+  `git@github.com:OpenTimelineIO/OpenTimelineIO-Swift-Bindings.git`
 
 You should see a choice of two C++ products that can be added to your workspace;
 for Swift development, choose the third product named `OpenTimelineIO`.

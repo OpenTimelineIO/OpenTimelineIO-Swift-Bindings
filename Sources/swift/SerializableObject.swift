@@ -7,6 +7,8 @@
 import OpenTimelineIO_objc
 typealias CxxSerializableObjectPtr = UnsafeMutableRawPointer
 
+public typealias schema_version_map = [String: NSNumber]
+
 public class SerializableObject: CxxRetainer {
     // MARK: - public API
     
@@ -22,16 +24,16 @@ public class SerializableObject: CxxRetainer {
         SerializableObject.wrapperCache.insert(key: cxxSerializableObject(), value: self)
     }
 
-    public func toJSON(url: URL, indent: Int = 4) throws {
-        return try toJSON(filename: url.path, indent: indent)
+    public func toJSON(url: URL, target_family_label_spec: schema_version_map = [:], indent: Int = 4) throws {
+        return try toJSON(filename: url.path,  target_family_label_spec: target_family_label_spec, indent: indent)
     }
 
-    public func toJSON(filename: String, indent: Int = 4) throws {
-        return try OTIOError.returnOrThrow { serializable_object_to_json_file(self, filename, Int32(indent), &$0) }
+    public func toJSON(filename: String, target_family_label_spec: schema_version_map = [:], indent: Int = 4) throws {
+        return try OTIOError.returnOrThrow { serializable_object_to_json_file(self, filename, target_family_label_spec, Int32(indent), &$0) }
     }
 
-    public func toJSON(indent: Int = 4) throws -> String {
-        return try OTIOError.returnOrThrow { serializable_object_to_json_string(self, Int32(indent), &$0) }
+    public func toJSON(target_family_label_spec: schema_version_map = [:], indent: Int = 4) throws -> String {
+        return try OTIOError.returnOrThrow { serializable_object_to_json_string(self, target_family_label_spec, Int32(indent), &$0) }
     }
     
     static public func fromJSON(url: URL) throws -> SerializableObject {

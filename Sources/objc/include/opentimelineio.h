@@ -44,9 +44,11 @@ void* otio_new_track();
 void* otio_new_transition();
 
 // MARK: SerializableObject
+
+typedef NSDictionary<NSString*, NSNumber*> schema_version_map;
     
-void serializable_object_to_json_file(CxxRetainer* self, NSString* filename, int indent, CxxErrorStruct* err);
-NSString* serializable_object_to_json_string(CxxRetainer* self, int indent, CxxErrorStruct* err);
+void serializable_object_to_json_file(CxxRetainer* self, NSString* filename, schema_version_map *target_family_label_spec, int indent, CxxErrorStruct* err);
+NSString* serializable_object_to_json_string(CxxRetainer* self, schema_version_map *target_family_label_spec, int indent, CxxErrorStruct* err);
     
 void* serializable_object_from_json_string(NSString* input, CxxErrorStruct* cxxErr);
 void* serializable_object_from_json_file(NSString* filename, CxxErrorStruct* cxxErr);

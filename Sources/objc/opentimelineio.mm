@@ -64,6 +64,16 @@ static inline NSString* make_nsstring(std::string const& s) {
     return [NSString stringWithUTF8String: s.c_str()];
 }
 
+inline otio::schema_version_map _to_cxx_schema_version_map(schema_version_map *target_family_label_spec) {
+    // convert label NSDictionary to map
+    otio::schema_version_map target_family_label_spec_map;
+    for (NSString *key in target_family_label_spec) {
+        NSNumber *value = [target_family_label_spec objectForKey:key];
+        target_family_label_spec_map[std::string(key.UTF8String)] = value.longLongValue;
+    }
+    return target_family_label_spec_map;
+}
+
 struct _AutoErrorHandler {
     _AutoErrorHandler(CxxErrorStruct* cxxErr) : _cxxErr {cxxErr} { }
 
@@ -179,15 +189,17 @@ void* otio_new_transition() {
 
 // MARK: - SerializableObject
 
-void serializable_object_to_json_file(CxxRetainer* self, NSString* filename, int indent, CxxErrorStruct* cxxErr) {
+void serializable_object_to_json_file(CxxRetainer* self, NSString* filename, schema_version_map *target_family_label_spec, int indent, CxxErrorStruct* cxxErr) {
     _AutoErrorHandler aeh(cxxErr);
-    self.retainer.value->to_json_file(filename.UTF8String, &aeh.error_status, indent);
+    otio::schema_version_map map = _to_cxx_schema_version_map(target_family_label_spec);
+    self.retainer.value->to_json_file(filename.UTF8String, &aeh.error_status, &map, indent);
     
 }
 
-NSString* serializable_object_to_json_string(CxxRetainer* self, int indent, CxxErrorStruct* cxxErr) {
+NSString* serializable_object_to_json_string(CxxRetainer* self, schema_version_map *target_family_label_spec, int indent, CxxErrorStruct* cxxErr) {
     _AutoErrorHandler aeh(cxxErr);
-    return make_nsstring(self.retainer.value->to_json_string(&aeh.error_status, indent));
+    otio::schema_version_map map = _to_cxx_schema_version_map(target_family_label_spec);
+    return make_nsstring(self.retainer.value->to_json_string(&aeh.error_status, &map, indent));
 }
 
 void* serializable_object_from_json_string(NSString* input, CxxErrorStruct* cxxErr) {

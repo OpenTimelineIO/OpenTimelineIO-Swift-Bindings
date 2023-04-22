@@ -59,8 +59,8 @@ let package = Package(
 
         .target(name: "OpenTimelineIO_CXX",
             dependencies: ["OpenTime_CXX", "any", "optionallite"],
-            path: "OpenTimelineIO/src/OpenTimelineIO",
-            exclude: [ "CMakeLists.txt" ],
+            path: "OpenTimelineIO/src/opentimelineio",
+            exclude: [ "CMakeLists.txt", "CORE_VERSION_MAP.last.cpp" ],
             sources: ["."],
             publicHeadersPath: ".",
             cxxSettings: [

@@ -10,7 +10,7 @@ let package = Package(
     name: "otio_examples",
     platforms: [.macOS(.v10_13)],
     dependencies: [
-    .package(name: "OpenTimelineIO", url: "https://github.com/meshula/OpenTimelineIO-Swift-Bindings.git", .branch("main"))
+    .package(name: "OpenTimelineIO", url: "https://github.com/OpenTimelineIO/OpenTimelineIO-Swift-Bindings.git", .branch("main"))
     ],
     targets: [
 	.target(name: "cxx_opentime_example",

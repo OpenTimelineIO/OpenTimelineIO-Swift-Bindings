@@ -1,0 +1,38 @@
+{
+    "OTIO_SCHEMA": "Timeline.1",
+    "metadata": {
+        "foo": {
+            "some_key": "some_value"
+        }
+    },
+    "name": "Timeline_AAF.Exported.01",
+    "global_start_time": {
+        "OTIO_SCHEMA": "RationalTime.1",
+        "rate": 24.0,
+        "value": 105733.0
+    },
+    "tracks": {
+        "OTIO_SCHEMA": "Stack.1",
+        "metadata": {},
+        "name": "tracks",
+        "source_range": null,
+        "effects": [],
+        "markers": [],
+        "enabled": true,
+        "children": [
+            {
+                "OTIO_SCHEMA": "Track.1",
+                "metadata": {
+                    "some_key": "some_value"
+                },
+                "name": "Sequence",
+                "source_range": null,
+                "effects": [],
+                "markers": [],
+                "enabled": true,
+                "children": [],
+                "kind": "Video"
+            }
+        ]
+    }
+}

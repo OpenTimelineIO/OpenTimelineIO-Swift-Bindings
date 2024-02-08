@@ -52,25 +52,23 @@ let package = Package(
         .target(name: "OpenTime_CXX",
             dependencies: ["otio_header_root"],
             path: "OpenTimelineIO/src/opentime",
-            exclude: ["CMakeLists.txt", "OpenTimeConfig.cmake.in"],
+            exclude: ["CMakeLists.txt"],
             sources: ["."],
             publicHeadersPath: ".",
             cxxSettings: [ 
-            .headerSearchPath("."),
-            .headerSearchPath("../OpenTimelineIO/src/opentime")]),
+            .headerSearchPath(".")]),
 
 
         .target(name: "OpenTimelineIO_CXX",
             dependencies: ["OpenTime_CXX", "any", "optionallite"],
             path: "OpenTimelineIO/src/opentimelineio",
-            exclude: [ "CMakeLists.txt", "CORE_VERSION_MAP.last.cpp", "OpenTimelineIOConfig.cmake.in"],
+            exclude: ["CMakeLists.txt", "CORE_VERSION_MAP.last.cpp"],
             sources: ["."],
             publicHeadersPath: ".",
             cxxSettings: [
                 .headerSearchPath("."),
                 .headerSearchPath("../deps/Imath/src/Imath"),
                 .headerSearchPath("../../../Sources/cpp"),
-                .headerSearchPath("../OpenTimelineIO/src/opentime"),
                 .headerSearchPath("../deps/rapidjson/include")]),
 
         .target(name: "OpenTimelineIO_objc",

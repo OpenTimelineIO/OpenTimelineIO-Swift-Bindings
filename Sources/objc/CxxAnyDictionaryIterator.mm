@@ -14,7 +14,7 @@ static bool lookup(CxxAnyDictionaryIterator* dictionaryIterator, T* result) {
         if (auto dict = ms->any_dictionary) {
             if (dictionaryIterator.iterator != dict->end()) {
                 if (dictionaryIterator.iterator->second.type() == typeid(T)) {
-                    *result = otio::any_cast<T>(dictionaryIterator.iterator->second);
+                    *result = std::any_cast<T>(dictionaryIterator.iterator->second);
                     return true;
                 }
             }
@@ -90,7 +90,7 @@ static bool lookup(CxxAnyDictionaryIterator* dictionaryIterator, T* result) {
     if (ms->stamp == self.startingStamp) {
         if (auto dict = ms->any_dictionary) {
             if (self.iterator != dict->end()) {
-                otio::any a = cxx_any_to_otio_any(cxxAny);
+                std::any a = cxx_any_to_otio_any(cxxAny);
                 std::swap(self.iterator->second, a);
             }
         }

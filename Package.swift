@@ -1,4 +1,4 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.5
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 //
 // SPDX-License-Identifier: Apache-2.0
@@ -65,6 +65,7 @@ let package = Package(
             publicHeadersPath: ".",
             cxxSettings: [
                 .headerSearchPath("."),
+                .headerSearchPath("../deps/any/"),
                 .headerSearchPath("../deps/Imath/src/Imath"),
                 .headerSearchPath("../../../Sources/cpp"),
                 .headerSearchPath("../deps/rapidjson/include")]),
@@ -93,5 +94,5 @@ let package = Package(
             sources: ["OpenTimelineIOTests"],
             resources: [ .copy("data") ])
     ],
-    cxxLanguageStandard: CXXLanguageStandard.cxx14
+    cxxLanguageStandard: CXXLanguageStandard.cxx17
 )

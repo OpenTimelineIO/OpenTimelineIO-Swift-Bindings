@@ -357,7 +357,7 @@ void item_set_source_range(CxxRetainer* self , CxxTimeRange tr) {
 
 void item_set_source_range_to_null(CxxRetainer* self) {
     auto item = SO_cast<otio::Item>(self);
-    item->set_source_range(otio::optional<otio::TimeRange>());
+    item->set_source_range(std::optional<otio::TimeRange>());
 }
 
 CxxTimeRange item_available_range(CxxRetainer* self, CxxErrorStruct* cxxErr) {
@@ -628,7 +628,7 @@ void media_reference_set_available_range(CxxRetainer* self, CxxTimeRange tr) {
 }
 
 void media_reference_clear_available_range(CxxRetainer* self) {
-    SO_cast<otio::MediaReference>(self)->set_available_range(otio::nullopt);
+    SO_cast<otio::MediaReference>(self)->set_available_range(std::nullopt);
 }
 
 // MARK: - Timeline
@@ -655,7 +655,7 @@ void timeline_set_global_start_time(CxxRetainer* self, CxxRationalTime rt) {
 }
 
 void timeline_clear_global_start_time(CxxRetainer* self) {
-    SO_cast<otio::Timeline>(self)->set_global_start_time(otio::nullopt);
+    SO_cast<otio::Timeline>(self)->set_global_start_time(std::nullopt);
 }
 
 CxxRationalTime timeline_duration(CxxRetainer* self, CxxErrorStruct* cxxErr) {

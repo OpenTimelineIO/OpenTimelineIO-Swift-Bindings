@@ -19,7 +19,7 @@ static bool lookup(otio::AnyDictionary::MutationStamp* mutationStamp, NSString* 
         auto it = dict->find(std::string(key.UTF8String));
         if (it != dict->end()) {
             if (it->second.type() == typeid(T)) {
-                *result = otio::any_cast<T>(it->second);
+                *result = std::any_cast<T>(it->second);
                 return true;
             }
         }
@@ -73,7 +73,7 @@ static bool lookup(otio::AnyDictionary::MutationStamp* mutationStamp, NSString* 
         auto skey = std::string(key.UTF8String);
         auto it = dict->find(skey);
         if (it != dict->end()) {
-            otio::any a = cxx_any_to_otio_any(cxxAny);
+            std::any a = cxx_any_to_otio_any(cxxAny);
             std::swap(it->second, a);
         }
         else {

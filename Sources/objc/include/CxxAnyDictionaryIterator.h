@@ -6,6 +6,7 @@
 // Copyright Contributors to the OpenTimelineIO project
 
 #import <Foundation/Foundation.h>
+#import "CxxAny.h"
 #import "opentime.h"
 #import "CxxAnyDictionaryMutationStamp.h"
 

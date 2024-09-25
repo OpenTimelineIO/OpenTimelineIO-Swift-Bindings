@@ -18,7 +18,7 @@ static bool lookup(otio::AnyVector::MutationStamp* mutationStamp, int index, T* 
     if (auto v = mutationStamp->any_vector) {
         if (index < v->size()) {
             if ((*v)[index].type() == typeid(T)) {
-                *result = otio::any_cast<T>(v[index]);
+                *result = std::any_cast<T>(v[index]);
                 return true;
             }
         }
@@ -67,7 +67,7 @@ static bool lookup(otio::AnyVector::MutationStamp* mutationStamp, int index, T* 
            value:(CxxAny) cxxAny {
     if (auto v = self.mutationStamp->any_vector) {
         if (index >= 0 && index < v->size()) {
-            otio::any a = cxx_any_to_otio_any(cxxAny);
+            std::any a = cxx_any_to_otio_any(cxxAny);
             std::swap((*v)[index], a);
         }
         else {
@@ -94,7 +94,7 @@ static bool lookup(otio::AnyVector::MutationStamp* mutationStamp, int index, T* 
     if (auto v = self.mutationStamp->any_vector) {
         if (grow) {
             for (int i = 0; i < n; i++) {
-                v->push_back(otio::any());
+                v->push_back(std::any());
             }
         }
         else {

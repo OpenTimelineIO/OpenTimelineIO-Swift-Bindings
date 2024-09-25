@@ -7,12 +7,6 @@
 
 #import "opentime.h"
 
-#if defined(__cplusplus)
-#import <opentimelineio/any.h>
-namespace otio = opentimelineio::OPENTIMELINEIO_VERSION;
-#endif
-
-
 typedef union CxxAnyValue {
     bool b;
     int64_t i;
@@ -45,6 +39,7 @@ typedef struct CxxAny {
 } CxxAny;
 
 #if defined(__cplusplus)
-void otio_any_to_cxx_any(otio::any const&, CxxAny*);
-otio::any cxx_any_to_otio_any(CxxAny const&);
+#import <any>
+void otio_any_to_cxx_any(std::any const&, CxxAny*);
+std::any cxx_any_to_otio_any(CxxAny const&);
 #endif

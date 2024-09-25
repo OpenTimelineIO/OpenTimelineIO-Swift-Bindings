@@ -1,4 +1,4 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.5
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 //
 // SPDX-License-Identifier: Apache-2.0
@@ -11,7 +11,6 @@ let package = Package(
     platforms: [.macOS(.v10_13),
         .iOS(.v11)],
     products: [
-        .library(name: "any", targets: ["any"]),
         .library(name: "OpenTime_CXX", targets: ["OpenTime_CXX"]),
         .library(name: "OpenTimelineIO_CXX", targets: ["OpenTimelineIO_CXX"]),
         .library(name: "OpenTimelineIO", targets: ["OpenTimelineIO"])
@@ -19,33 +18,12 @@ let package = Package(
 
     dependencies: [],
     targets: [
-        .target(name: "any",
-            path: ".",
-            exclude: [
-                "CONTRIBUTORS.md", "NOTICE.txt", "CONTRIBUTING.md", "LICENSE.txt", "CODE_OF_CONDUCT.md",
-                "OTIO_CLA_Corporate.pdf", "OTIO_CLA_Individual.pdf",
-                "README.md", "Sources/shims/optionallite-shim.cpp", "Sources/shims/otio_header_root-shim.cpp",
-                "Examples", "OpenTimelineIO", "Tests", "Sources/objc", "Sources/swift"],
-            sources: ["Sources/shims/any-shim.cpp"],
-            publicHeadersPath:"OpenTimelineIO/src/deps"),
-
-        .target(name: "optionallite",
-            path: ".",
-            exclude: [
-                "CONTRIBUTORS.md", "NOTICE.txt", "CONTRIBUTING.md", "LICENSE.txt", "CODE_OF_CONDUCT.md",
-                "OTIO_CLA_Corporate.pdf", "OTIO_CLA_Individual.pdf",
-                "README.md", "Sources/shims/any-shim.cpp", "Sources/shims/otio_header_root-shim.cpp",
-                "Examples", "OpenTimelineIO", "Tests", "Sources/objc", "Sources/swift"],
-            sources: ["Sources/shims/optionallite-shim.cpp"],
-            publicHeadersPath:"OpenTimelineIO/src/deps/optional-lite/include"),
-
         .target(name: "otio_header_root",
             path: ".",
             exclude: [
                 "CONTRIBUTORS.md", "NOTICE.txt", "CONTRIBUTING.md", "LICENSE.txt", "CODE_OF_CONDUCT.md",
                 "OTIO_CLA_Corporate.pdf", "OTIO_CLA_Individual.pdf",
-                "README.md", "Sources/shims/any-shim.cpp", "Sources/shims/optionallite-shim.cpp",
-                "Examples", "OpenTimelineIO", "Tests", "Sources/objc", "Sources/swift"],
+                "README.md", "Examples", "OpenTimelineIO", "Tests", "Sources/objc", "Sources/swift"],
             sources: ["Sources/shims/otio_header_root-shim.cpp"],
             publicHeadersPath:"OpenTimelineIO/src"),
 
@@ -58,13 +36,14 @@ let package = Package(
             cxxSettings: [ .headerSearchPath(".")]),
 
         .target(name: "OpenTimelineIO_CXX",
-            dependencies: ["OpenTime_CXX", "any", "optionallite"],
+            dependencies: ["OpenTime_CXX"],
             path: "OpenTimelineIO/src/opentimelineio",
             exclude: ["CMakeLists.txt", "CORE_VERSION_MAP.last.cpp", "OpenTimelineIOConfig.cmake.in"],
             sources: ["."],
             publicHeadersPath: ".",
             cxxSettings: [
                 .headerSearchPath("."),
+                .headerSearchPath("../deps/any/"),
                 .headerSearchPath("../deps/Imath/src/Imath"),
                 .headerSearchPath("../../../Sources/cpp"),
                 .headerSearchPath("../deps/rapidjson/include")]),
@@ -93,5 +72,5 @@ let package = Package(
             sources: ["OpenTimelineIOTests"],
             resources: [ .copy("data") ])
     ],
-    cxxLanguageStandard: CXXLanguageStandard.cxx14
+    cxxLanguageStandard: CXXLanguageStandard.cxx17
 )

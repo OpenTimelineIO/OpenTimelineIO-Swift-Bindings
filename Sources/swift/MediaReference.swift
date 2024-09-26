@@ -49,4 +49,21 @@ public class MediaReference : SerializableObjectWithMetadata {
     public var isMissingReference: Bool {
         get { return media_reference_is_missing_reference(self) }
     }
+    
+    public var availableImageBounds: CxxBox2D?
+    {
+        get { var box2D = CxxBox2D()
+            return media_reference_available_image_bounds(self, &box2D) ? box2D : nil
+        }
+        set {
+            if let newValue = newValue {
+                media_reference_set_available_image_bounds(self, newValue)
+            }
+            else
+            {
+                media_reference_clear_available_image_bounds(self)
+            }
+        }
+        
+    }
 }

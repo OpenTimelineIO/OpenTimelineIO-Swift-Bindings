@@ -1,4 +1,4 @@
-// swift-tools-version:5.9
+// swift-tools-version:5.5
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 //
 // SPDX-License-Identifier: Apache-2.0
@@ -8,11 +8,8 @@ import PackageDescription
 
 let package = Package(
     name: "OpenTimelineIO",
-    platforms: [
-      .macOS(.v10_13),
-      .iOS(.v12),
-      .visionOS(.v1)
-    ],
+    platforms: [.macOS(.v10_13),
+        .iOS(.v11)],
     products: [
         .library(name: "OpenTime_CXX", targets: ["OpenTime_CXX"]),
         .library(name: "OpenTimelineIO_CXX", targets: ["OpenTimelineIO_CXX"]),

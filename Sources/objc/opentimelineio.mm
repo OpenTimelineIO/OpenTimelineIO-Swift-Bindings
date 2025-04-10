@@ -638,7 +638,7 @@ bool media_reference_available_image_bounds(CxxRetainer* self, CGRect* rect) {
         rect->origin.x = iBox2D->min.x;
         rect->origin.y = iBox2D->min.y;
         rect->size.width = iBox2D->max.x - iBox2D->min.x;
-        rect->size.height = iBox2D->max.y - iBox2D->max.y;
+        rect->size.height = iBox2D->max.y - iBox2D->min.y;
         
         return true;
     }

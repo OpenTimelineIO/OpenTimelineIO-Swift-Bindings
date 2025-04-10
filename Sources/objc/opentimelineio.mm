@@ -631,6 +631,39 @@ void media_reference_clear_available_range(CxxRetainer* self) {
     SO_cast<otio::MediaReference>(self)->set_available_range(std::nullopt);
 }
 
+
+// If true, value of passed in rect is set. If false, there was no media reference bounds
+bool media_reference_available_image_bounds(CxxRetainer* self, CGRect* rect) {
+    std::optional<IMATH_NAMESPACE::Box2d> iBox2D = SO_cast<otio::MediaReference>(self)->available_image_bounds();
+    
+    if (iBox2D) {
+        rect->origin.x = iBox2D->min.x;
+        rect->origin.y = iBox2D->min.y;
+        rect->size.width = iBox2D->max.x - iBox2D->min.x;
+        rect->size.height = iBox2D->max.y - iBox2D->min.y;
+        
+        return true;
+    }
+        
+    return false;
+}
+
+void media_reference_set_available_image_bounds(CxxRetainer* self, CGRect image_bounds) {
+    std::optional<IMATH_NAMESPACE::Box2d> iBox2D = std::optional<IMATH_NAMESPACE::Box2d>();
+    
+    iBox2D->min.x = image_bounds.origin.x;
+    iBox2D->min.y = image_bounds.origin.y;
+    iBox2D->max.x = image_bounds.size.width + image_bounds.origin.x;
+    iBox2D->max.y = image_bounds.size.height + image_bounds.origin.y;
+    
+    SO_cast<otio::MediaReference>(self)->set_available_image_bounds(iBox2D);
+}
+
+void media_reference_clear_available_image_bounds(CxxRetainer* self) {
+    SO_cast<otio::MediaReference>(self)->set_available_image_bounds(std::nullopt);
+}
+
+
 // MARK: - Timeline
 
 void* timeline_get_tracks(CxxRetainer* self) {

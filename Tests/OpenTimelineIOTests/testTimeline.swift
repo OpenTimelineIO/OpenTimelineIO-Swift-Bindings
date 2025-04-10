@@ -50,4 +50,33 @@ final class testTimeline: XCTestCase {
             XCTFail("Cannot read OTIO file `\(timelineInputPath)`: \(error)")
         }
     }
+    
+    func testTimelineClipAvailableBounds() {
+        let inputName = "data/clip_example.otio"
+        
+        guard let timelineInputPath = Bundle.module.path(forResource: inputName, ofType: "") else {
+            XCTFail("Missing test data `\(inputName)`")
+            return
+        }
+
+        do {
+            let otio = try SerializableObject.fromJSON(filename: timelineInputPath)
+            
+            guard let timeline = otio as? Timeline else {
+                XCTFail("Could not create Timeline object from \(timelineInputPath)")
+                return
+            }
+
+            if let firstClip = timeline.videoTracks.first!.children[1] as? Clip,
+               let mediaReference = firstClip.mediaReference,
+               let availableBounds = mediaReference.availableImageBounds
+            {
+                XCTAssertEqual(availableBounds, CGRect(origin: .zero, size: CGSize(width: 16, height: 9)))
+            }
+
+        } catch let error {
+            XCTFail("Cannot read OTIO file `\(timelineInputPath)`: \(error)")
+        }
+    }
+    
 }

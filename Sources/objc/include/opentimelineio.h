@@ -10,7 +10,6 @@
 #import "CxxAnyDictionaryIterator.h"
 #import "CxxAnyVectorMutationStamp.h"
 #import "CxxVectorProperty.h"
-#import "CxxBox.h"
 #import "errorStruct.h"
 
 #if defined(__cplusplus)
@@ -185,8 +184,8 @@ bool media_reference_available_range(CxxRetainer* self, CxxTimeRange*);
 void media_reference_set_available_range(CxxRetainer* self, CxxTimeRange);
 void media_reference_clear_available_range(CxxRetainer* self);
 
-bool media_reference_available_image_bounds(CxxRetainer* self, CxxBox2D* );
-void media_reference_set_available_image_bounds(CxxRetainer* self, CxxBox2D image_bounds);
+bool media_reference_available_image_bounds(CxxRetainer* self, CGRect* );
+void media_reference_set_available_image_bounds(CxxRetainer* self, CGRect image_bounds);
 void media_reference_clear_available_image_bounds(CxxRetainer* self);
 
 // MARK: - Timeline

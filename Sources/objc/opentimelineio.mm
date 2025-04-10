@@ -37,7 +37,6 @@
 #import "opentimelineio.h"
 #import "opentime.h"
 #import "errorStruct.h"
-#import "CxxBox.h"
 #import "CxxVectorProperty.h"
 
 namespace otio = opentimelineio::OPENTIMELINEIO_VERSION;
@@ -632,30 +631,30 @@ void media_reference_clear_available_range(CxxRetainer* self) {
     SO_cast<otio::MediaReference>(self)->set_available_range(std::nullopt);
 }
 
-bool media_reference_available_image_bounds(CxxRetainer* self, CxxBox2D* ib) {
+bool media_reference_available_image_bounds(CxxRetainer* self, CGRect* rect) {
     std::optional<IMATH_NAMESPACE::Box2d> iBox2D = SO_cast<otio::MediaReference>(self)->available_image_bounds();
     
-    if (iBox2D && ib) {
-        ib->minX = iBox2D->min.x;
-        ib->minY = iBox2D->min.y;
-        ib->maxX = iBox2D->max.x;
-        ib->maxX = iBox2D->max.y;
+    if (iBox2D && rect) {
+        rect->origin.x = iBox2D->min.x;
+        rect->origin.y = iBox2D->min.y;
+        rect->size.width = iBox2D->max.x - iBox2D->min.x;
+        rect->size.height = iBox2D->max.y - iBox2D->max.y;
         
         return true;
     }
     
-    ib = NULL;
+    rect = NULL;
     
     return false;
 }
 
-void media_reference_set_available_image_bounds(CxxRetainer* self, CxxBox2D image_bounds) {
+void media_reference_set_available_image_bounds(CxxRetainer* self, CGRect image_bounds) {
     std::optional<IMATH_NAMESPACE::Box2d> iBox2D = std::optional<IMATH_NAMESPACE::Box2d>();
     
-    iBox2D->min.x = image_bounds.minX;
-    iBox2D->min.y = image_bounds.minY;
-    iBox2D->max.x = image_bounds.maxX;
-    iBox2D->max.y = image_bounds.maxX;
+    iBox2D->min.x = image_bounds.origin.x;
+    iBox2D->min.y = image_bounds.origin.y;
+    iBox2D->max.x = image_bounds.size.width + image_bounds.origin.x;
+    iBox2D->max.y = image_bounds.size.height + image_bounds.origin.y;
     
     SO_cast<otio::MediaReference>(self)->set_available_image_bounds(iBox2D);
 }

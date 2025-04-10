@@ -50,15 +50,16 @@ public class MediaReference : SerializableObjectWithMetadata {
         get { return media_reference_is_missing_reference(self) }
     }
     
-    public var availableImageBounds: SIMD4<Double>?
+    public var availableImageBounds: CGRect?
     {
-        get { var box2D = CxxBox2D()
-            return media_reference_available_image_bounds(self, &box2D) ? SIMD4(box2D.minX, box2D.minY, box2D.maxX, box2D.maxY) : nil
+        get {
+            var rect = CGRect(origin: CGPoint.init(x: 0, y: 0), size: CGSize(width: 0, height: 0))
+            return media_reference_available_image_bounds(self, &rect) ? rect : nil
         }
         set {
             if let newValue = newValue {
                 
-                media_reference_set_available_image_bounds(self, CxxBox2D.init(minX: newValue.x, minY: newValue.y, maxX: newValue.z, maxY: newValue.w))
+                media_reference_set_available_image_bounds(self, newValue)
             }
             else
             {

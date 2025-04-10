@@ -58,7 +58,6 @@ public class MediaReference : SerializableObjectWithMetadata {
         }
         set {
             if let newValue {
-                
                 media_reference_set_available_image_bounds(self, newValue)
             }
             else {

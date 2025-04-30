@@ -77,6 +77,17 @@ public class Timeline : SerializableObjectWithMetadata {
         return try OTIOError.returnOrThrow { TimeRange(timeline_range_of_child(self, child, &$0)) }
     }
 
+    public func findClips() throws -> [Clip] {
+        let children_array = try OTIOError.returnOrThrow { timeline_find_clips(self, &$0) }
+        var result = [Clip]()
+        for child in children_array {
+            if let nsptr = child as? NSValue, let cxxPtr = nsptr.pointerValue {
+                result.append(SerializableObject.findOrCreate(cxxPtr: cxxPtr) as! Clip)
+            }
+        }
+        return result
+    }
+
     override internal init(_ cxxPtr: CxxSerializableObjectPtr) {
         super.init(cxxPtr)
     }

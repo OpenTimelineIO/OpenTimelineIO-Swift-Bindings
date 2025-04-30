@@ -204,6 +204,8 @@ CxxTimeRange timeline_range_of_child(CxxRetainer* self, CxxRetainer* child, CxxE
 NSArray* timeline_audio_tracks(CxxRetainer* self);
 NSArray* timeline_video_tracks(CxxRetainer* self);
 
+NSArray* timeline_find_clips(CxxRetainer* self, CxxErrorStruct* cxxErr);
+
 // MARK: - Track
 NSString* track_get_kind(CxxRetainer* self);
 void track_set_kind(CxxRetainer* self, NSString*);

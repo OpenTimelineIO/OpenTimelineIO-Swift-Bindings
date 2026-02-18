@@ -18,7 +18,7 @@ std::any cxx_any_to_otio_any(CxxAny const& cxxAny) {
         case CxxAny::BOOL_:
             return std::any(cxxAny.value.b);
         case CxxAny::INT:
-            if (cxxAny.value.i < -INT_MIN || cxxAny.value.i > INT_MAX) {
+            if (cxxAny.value.i < INT_MIN || cxxAny.value.i > INT_MAX) {
                 return std::any(cxxAny.value.i);
             }
             else {
@@ -50,12 +50,11 @@ std::any cxx_any_to_otio_any(CxxAny const& cxxAny) {
 namespace {
 struct _ToCxxAny {
     std::map<std::type_index, std::function<void (std::any const&, CxxAny*)>> function_map;
-    
+
     _ToCxxAny() {
         auto& m = function_map;
         m[std::type_index(typeid(void))] = [](std::any const& a, CxxAny* cxxAny) {
             cxxAny->type_code = CxxAny::NONE;
-            
         };
         m[std::type_index(typeid(bool))] = [](std::any const& a, CxxAny* cxxAny) {
             cxxAny->type_code = CxxAny::BOOL_;
@@ -108,7 +107,7 @@ struct _ToCxxAny {
 void otio_any_to_cxx_any(std::any const& a, CxxAny* cxxAny) {
     static auto toCxxAny = _ToCxxAny();
     auto e = toCxxAny.function_map.find(std::type_index(a.type()));
-    
+
     if (e != toCxxAny.function_map.end()) {
         e->second(a, cxxAny);
     }

@@ -410,6 +410,16 @@ CxxTimeRange item_transformed_time_range(CxxRetainer* self, CxxTimeRange tr, Cxx
                                                      &aeh.error_status));
 }
 
+bool item_get_enabled(CxxRetainer* self) {
+    auto item = SO_cast<otio::Item>(self);
+    return item->enabled();
+}
+
+void item_set_enabled(CxxRetainer* self, bool enabled) {
+    auto item = SO_cast<otio::Item>(self);
+    item->set_enabled(enabled);
+}
+
 // MARK: - Transition
 CxxRationalTime transition_get_in_offset(CxxRetainer* self) {
     return cxxRationalTime(SO_cast<otio::Transition>(self)->in_offset());

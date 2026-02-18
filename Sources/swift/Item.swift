@@ -20,6 +20,7 @@ public class Item : Composable {
                                            sourceRange: TimeRange? = nil,
                                            effects: [Effect]? = nil,
                                            markers: [Marker]? = nil,
+                                           enabled: Bool = true,
                                            metadata: ST? = nil) where ST.Element == Metadata.Dictionary.Element {
         self.init()
         metadataInit(name, metadata)
@@ -32,14 +33,16 @@ public class Item : Composable {
         if let effects = effects {
             self.effects.set(contents: effects)
         }
+        self.enabled = enabled
     }
     
     public convenience init(name: String? = nil,
                             sourceRange: TimeRange? = nil,
                             effects: [Effect]? = nil,
-                            markers: [Marker]? = nil) {
+                            markers: [Marker]? = nil,
+                            enabled: Bool = true) {
         self.init(name: name, sourceRange: sourceRange, effects: effects, markers: markers,
-                  metadata: Metadata.Dictionary.none)
+                  enabled: enabled, metadata: Metadata.Dictionary.none)
     }
 
     public var sourceRange: TimeRange? {
@@ -55,6 +58,11 @@ public class Item : Composable {
                 item_set_source_range_to_null(self)
             }
         }
+    }
+
+    public var enabled: Bool {
+        get { item_get_enabled(self) }
+        set { item_set_enabled(self, newValue) }
     }
     
     lazy var _markersProperty = { create_item_markers_vector_property(self) }()

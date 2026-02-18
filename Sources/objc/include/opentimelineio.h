@@ -135,6 +135,8 @@ bool item_trimmed_range_in_parent(CxxRetainer* self, CxxTimeRange*, CxxErrorStru
 CxxTimeRange item_range_in_parent(CxxRetainer* self, CxxErrorStruct*);
 CxxRationalTime item_transformed_time(CxxRetainer* self, CxxRationalTime, CxxRetainer* to_item, CxxErrorStruct*);
 CxxTimeRange item_transformed_time_range(CxxRetainer* self, CxxTimeRange, CxxRetainer* to_item, CxxErrorStruct*);
+bool item_get_enabled(CxxRetainer* self);
+void item_set_enabled(CxxRetainer* self, bool enabled);
 
 // MARK: - Transition
 CxxRationalTime transition_get_in_offset(CxxRetainer* self);

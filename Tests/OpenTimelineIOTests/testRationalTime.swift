@@ -211,6 +211,15 @@ class testRationalTime: XCTestCase {
         try XCTAssertThrowsError(t.toTimecode())
     }
 
+    func testSmpteRates() {
+      XCTAssertFalse(RationalTime.isSmpteTimecodeRate(29.98))
+      XCTAssertFalse(RationalTime.isSmpteTimecodeRate(23.98))
+      XCTAssertTrue(RationalTime.isSmpteTimecodeRate(30000.0 / 1001.0))
+      XCTAssertTrue(RationalTime.isSmpteTimecodeRate(24000.0 / 1001.0))
+      XCTAssertTrue(RationalTime.isSmpteTimecodeRate(30))
+      XCTAssertTrue(RationalTime.isSmpteTimecodeRate(24))
+    }
+
     func testTimeString24() {
         var time_string = "00:00:00.041667"
         var t = RationalTime(value: 1.0, rate: 24)

@@ -60,7 +60,7 @@ extern "C" {
 #endif
 
 
-    
+
 double rational_time_value_rescaled_to(CxxRationalTime const*, double new_rate);
 double rational_time_value_rescaled_to_copy(CxxRationalTime, double new_rate);
 CxxRationalTime rational_time_rescaled_to(CxxRationalTime const* rt, double new_rate);
@@ -68,6 +68,7 @@ bool rational_time_almost_equal(CxxRationalTime, CxxRationalTime, double);
 
 CxxRationalTime rational_time_duration_from_start_end_time(CxxRationalTime, CxxRationalTime);
 bool rational_time_is_valid_timecode_rate(double);
+bool rational_time_is_smpte_timecode_rate(double);
 
 CxxRationalTime rational_time_from_timecode(NSString* timecode, double rate, CxxErrorStruct* err);
 CxxRationalTime rational_time_from_timestring(NSString* timestring, double rate, CxxErrorStruct* err);

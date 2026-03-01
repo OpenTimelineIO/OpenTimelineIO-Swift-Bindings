@@ -28,7 +28,7 @@ typedef struct CxxNonsense {
 #import <opentime/timeRange.h>
 #import <opentime/timeTransform.h>
 
-namespace ot = opentime::OPENTIME_VERSION;
+namespace ot = opentime::OPENTIME_VERSION_NS;
 
 inline ot::RationalTime const& otioRationalTime(CxxRationalTime const& rt) {
     return *((ot::RationalTime const*)(&rt));

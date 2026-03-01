@@ -9,7 +9,7 @@
 
 #if defined(__cplusplus)
 #import <opentimelineio/serializableObject.h>
-namespace otio = opentimelineio::OPENTIMELINEIO_VERSION;
+namespace otio = opentimelineio::OPENTIMELINEIO_VERSION_NS;
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

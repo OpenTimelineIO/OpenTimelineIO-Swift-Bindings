@@ -36,9 +36,7 @@ let package = Package(
             exclude: ["CMakeLists.txt", "OpenTimeConfig.cmake.in", "version.h.in"],
             sources: ["."],
             publicHeadersPath: ".",
-            cxxSettings: [
-                .headerSearchPath("."),
-                .headerSearchPath("../../../Sources/cpp")]),
+            cxxSettings: [.headerSearchPath(".")]),
 
         .target(name: "OpenTimelineIO_CXX",
             dependencies: ["OpenTime_CXX"],

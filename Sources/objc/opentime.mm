@@ -10,7 +10,7 @@
 #import <opentimelineio/clip.h>
 #import "opentime.h"
 
-namespace otio = opentimelineio::OPENTIMELINEIO_VERSION;
+namespace otio = opentimelineio::OPENTIMELINEIO_VERSION_NS;
 
 static inline otio::RationalTime const* otioRationalTime(CxxRationalTime const* rt) {
     return (otio::RationalTime const*)(rt);

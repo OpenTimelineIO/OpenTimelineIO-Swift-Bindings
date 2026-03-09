@@ -82,7 +82,9 @@ public class Timeline : SerializableObjectWithMetadata {
         var result = [Clip]()
         for child in children_array {
             if let nsptr = child as? NSValue, let cxxPtr = nsptr.pointerValue {
-                result.append(SerializableObject.findOrCreate(cxxPtr: cxxPtr) as! Clip)
+                if let clip = SerializableObject.findOrCreate(cxxPtr: cxxPtr) as? Clip {
+                    result.append(clip)
+                }
             }
         }
         return result

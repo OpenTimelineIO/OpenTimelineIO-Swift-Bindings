@@ -730,6 +730,9 @@ NSArray* timeline_video_tracks(CxxRetainer* self) {
 NSArray* timeline_find_clips(CxxRetainer* self, CxxErrorStruct* cxxErr) {
     auto array = [NSMutableArray new];
     _AutoErrorHandler aeh(cxxErr);
+    // find_clips() returns pointers to Clips owned by the Timeline's composition
+    // hierarchy. NSValue wraps them for transport to Swift, where findOrCreate()
+    // creates properly-retained wrappers. Same pattern as composition_children_in_range().
     for (auto t: SO_cast<otio::Timeline>(self)->find_clips(&aeh.error_status)) {
         [array addObject: [NSValue valueWithPointer: t]];
     }

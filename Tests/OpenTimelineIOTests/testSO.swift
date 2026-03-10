@@ -65,7 +65,7 @@ class testSO: XCTestCase {
         XCTAssert(uso.originalSchemaVersion == 3 && uso.originalSchemaName == "BogusName")
     }
 
-    func test_SerializableObjectWithMetadata() {
+    func test_SerializableObjectWithMetadata() throws {
         let sowm = SerializableObjectWithMetadata()
         let clip = Clip()
         sowm.metadata["anInt"] = 1
@@ -76,9 +76,63 @@ class testSO: XCTestCase {
         let sowm2 = try! sowm.clone() as! SerializableObjectWithMetadata
         XCTAssert(sowm2.isEquivalent(to: sowm))
 
+        try XCTAssert(sowm.toJSON() == sowm2.toJSON())
+
         let sowm3 = SerializableObjectWithMetadata(name: sowm.name, metadata: sowm.metadata)
         let sowm4 = SerializableObjectWithMetadata(name: sowm3.name, metadata: sowm3.metadata.map { $0 })
         XCTAssert(sowm3.isEquivalent(to: sowm4))
+
+        print(try! sowm.toJSON())
+    }
+
+    func test_MetadataGetSet() throws {
+        let sowm = SerializableObjectWithMetadata()
+
+        // Note: We're matching OTIO's pretty-printing here exactly.
+        // That includes the spacing, sorted keys, etc.
+        let meta1 = """
+        {
+            "aDict": {
+                "bar": 12,
+                "baz": "fibble"
+            },
+            "aList": [
+                "a",
+                "b",
+                "c"
+            ],
+            "aString": "foo",
+            "anInt": 1
+        }
+        """
+        let meta2 = """
+        [
+            "x",
+            "y",
+            12
+        ]
+        """
+        let meta3 = """
+        "Tuesday"
+        """
+        let meta4 = """
+        true
+        """
+
+        try sowm.setMetadataJSON("meta1", meta1)
+        try sowm.setMetadataJSON("meta2", meta2)
+        try sowm.setMetadataJSON("meta3", meta3)
+        try sowm.setMetadataJSON("meta4", meta4)
+
+        XCTAssertEqual(try sowm.getMetadataJSON("meta1"), meta1)
+        XCTAssertEqual(try sowm.getMetadataJSON("meta2"), meta2)
+        XCTAssertEqual(try sowm.getMetadataJSON("meta3"), meta3)
+        XCTAssertEqual(try sowm.getMetadataJSON("meta4"), meta4)
+
+        let sowm2 = try! sowm.clone() as! SerializableObjectWithMetadata
+        XCTAssert(sowm2.isEquivalent(to: sowm))
+
+        try XCTAssert(sowm.toJSON() == sowm2.toJSON())
 
         print(try! sowm.toJSON())
     }

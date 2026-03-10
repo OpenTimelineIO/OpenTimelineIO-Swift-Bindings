@@ -11,6 +11,7 @@
 #import "CxxAnyVectorMutationStamp.h"
 #import "CxxVectorProperty.h"
 #import "errorStruct.h"
+#import "CxxAny.h"
 
 #if defined(__cplusplus)
 extern "C" {
@@ -81,10 +82,14 @@ NSString* unknown_schema_original_schema_name(CxxRetainer* self);
 int unknown_schema_original_schema_version(CxxRetainer* self);
 
 // MARK: - SerializableObjectWithMetadata
-    
+
 NSString* serializable_object_with_metadata_name(CxxRetainer* self);
 void serializable_object_with_metadata_set_name(CxxRetainer* self, NSString* name);
 void* serializable_object_with_metadata_metadata(CxxRetainer* self);
+
+// MARK: - AnyValue JSON
+NSString* _Nullable any_value_to_json_string(CxxAny* _Nonnull value, int indent, CxxErrorStruct* _Nonnull err);
+bool any_value_from_json_string(NSString* _Nonnull input, CxxAny* _Nonnull result, CxxErrorStruct* _Nonnull err);
     
 // MARK: - Clip
 void* _Nullable clip_media_reference(CxxRetainer* self);

@@ -35,22 +35,46 @@ public class SerializableObjectWithMetadata : SerializableObject {
             }
         }
     }
-    
+
     override public var description: String {
         let addr = ObjectIdentifier(self).hashValue
         let addr2 = Int(bitPattern: cxxSerializableObject())
         return "\(String(describing: type(of: self))) named '\(name)' <swift: 0x\(String(format: "%x", addr)), C++: \(String(format: "%p", addr2))>"
     }
-    
+
     public var name: String {
         get { return serializable_object_with_metadata_name(self) }
         set { serializable_object_with_metadata_set_name(self, newValue) }
     }
-    
+
     public var metadata: Metadata.Dictionary {
         get { return Metadata.Dictionary.wrap(anyDictionaryPtr: serializable_object_with_metadata_metadata(self), cxxRetainer: self) }
     }
-    
+
+    public func getMetadataJSON(_ key: String) throws -> String? {
+        guard let value: MetadataValue = metadata[key] else {
+            return nil
+        }
+        var jsonString: String? = nil
+        var thrownError: Error? = nil
+        Metadata.withCxxAny(value) { cxxAny in
+            var mutableCxxAny = cxxAny
+            do {
+                jsonString = try OTIOError.returnOrThrow { any_value_to_json_string(&mutableCxxAny, 4, &$0) }
+            } catch {
+                thrownError = error
+            }
+        }
+        if let error = thrownError { throw error }
+        return jsonString
+    }
+
+    public func setMetadataJSON(_ key: String, _ value: String) throws {
+        var cxxAny = CxxAny()
+        _ = try OTIOError.returnOrThrow { any_value_from_json_string(value, &cxxAny, &$0) }
+        metadata[key] = Metadata.cxxAnyToMetadataValue(cxxAny)
+    }
+
     override internal init(_ cxxPtr: CxxSerializableObjectPtr) {
         super.init(cxxPtr)
     }

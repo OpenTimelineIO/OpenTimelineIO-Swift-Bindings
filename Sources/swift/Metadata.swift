@@ -417,7 +417,7 @@ public enum Metadata {
         return CxxAny(type_code: Int32(type.rawValue), value: value)
     }
     
-    private static func withCxxAny(_ value: MetadataValue, work: (CxxAny) -> ()) {
+    static func withCxxAny(_ value: MetadataValue, work: (CxxAny) -> ()) {
         switch value.metadataType {
         case .none:
             work(createCxxAny(.none, .init(i: 0)))

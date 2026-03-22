@@ -36,7 +36,7 @@ let package = Package(
             exclude: ["CMakeLists.txt", "OpenTimeConfig.cmake.in"],
             sources: ["."],
             publicHeadersPath: ".",
-            cxxSettings: [ .headerSearchPath(".")]),
+            cxxSettings: [.headerSearchPath(".")]),
 
         .target(name: "OpenTimelineIO_CXX",
             dependencies: ["OpenTime_CXX"],
@@ -47,7 +47,7 @@ let package = Package(
             cxxSettings: [
                 .headerSearchPath("."),
                 .headerSearchPath("../deps/any/"),
-                .headerSearchPath("../deps/Imath/src/Imath"),
+                .headerSearchPath("../deps/Imath/src"),
                 .headerSearchPath("../../../Sources/cpp"),
                 .headerSearchPath("../deps/rapidjson/include")]),
 
@@ -58,7 +58,7 @@ let package = Package(
             sources: ["objc"],
             publicHeadersPath: "objc/include",
             cxxSettings: [
-                .headerSearchPath("../OpenTimelineIO/src/deps/Imath/src/Imath"),
+                .headerSearchPath("../OpenTimelineIO/src/deps/Imath/src"),
                 .headerSearchPath("../Sources/cpp"),
                 .headerSearchPath("objc/include")]),
 

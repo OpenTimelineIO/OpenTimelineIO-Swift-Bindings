@@ -204,10 +204,17 @@ class testRationalTime: XCTestCase {
         try XCTAssertThrowsError(RationalTime.from(timecode: "01:00:13;23", rate: 24))
     }
 
-    func testInvalidToTimecode() {
+    func testCloseEnoughRateSnappingForTimecode() {
+        // The 29.98 rate gets silently snapped to 30000/1001
         let t = RationalTime(value: 100, rate: 29.98)
+        try XCTAssertEqual(t.toTimecode(rate: 29.98), "00:00:03;10")
+        try XCTAssertEqual(t.toTimecode(), "00:00:03;10")
+    }
 
-        try XCTAssertThrowsError(t.toTimecode(rate: 29.98))
+    func testInvalidToTimecode() {
+        // The 29.8 rate is too far from 30000/1001 so it throws an error
+        let t = RationalTime(value: 100, rate: 29.8)
+        try XCTAssertThrowsError(t.toTimecode(rate: 29.8))
         try XCTAssertThrowsError(t.toTimecode())
     }
 

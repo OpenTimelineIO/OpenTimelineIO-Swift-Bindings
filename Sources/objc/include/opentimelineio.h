@@ -29,6 +29,7 @@ void* otio_new_external_reference();
 void* otio_new_freeze_frame();
 void* otio_new_gap();
 void* otio_new_generator_reference();
+void* otio_new_image_sequence_reference();
 void* otio_new_item();
 void* otio_new_linear_time_warp();
 void* otio_new_marker();
@@ -97,6 +98,29 @@ void effect_set_name(CxxRetainer* self, NSString*);
 // MARK: - ExternalReference
 NSString* external_reference_get_target_url(CxxRetainer* self);
 void external_reference_set_target_url(CxxRetainer* self, NSString*);
+
+// MARK: - ImageSequenceReference
+NSString* image_sequence_reference_get_target_url_base(CxxRetainer* self);
+void image_sequence_reference_set_target_url_base(CxxRetainer* self, NSString*);
+NSString* image_sequence_reference_get_name_prefix(CxxRetainer* self);
+void image_sequence_reference_set_name_prefix(CxxRetainer* self, NSString*);
+NSString* image_sequence_reference_get_name_suffix(CxxRetainer* self);
+void image_sequence_reference_set_name_suffix(CxxRetainer* self, NSString*);
+int image_sequence_reference_get_start_frame(CxxRetainer* self);
+void image_sequence_reference_set_start_frame(CxxRetainer* self, int start_frame);
+int image_sequence_reference_get_frame_step(CxxRetainer* self);
+void image_sequence_reference_set_frame_step(CxxRetainer* self, int frame_step);
+double image_sequence_reference_get_rate(CxxRetainer* self);
+void image_sequence_reference_set_rate(CxxRetainer* self, double rate);
+int image_sequence_reference_get_frame_zero_padding(CxxRetainer* self);
+void image_sequence_reference_set_frame_zero_padding(CxxRetainer* self, int frame_zero_padding);
+int image_sequence_reference_get_missing_frame_policy(CxxRetainer* self);
+void image_sequence_reference_set_missing_frame_policy(CxxRetainer* self, int missing_frame_policy);
+int image_sequence_reference_end_frame(CxxRetainer* self);
+int image_sequence_reference_number_of_images_in_sequence(CxxRetainer* self);
+int image_sequence_reference_frame_for_time(CxxRetainer* self, CxxRationalTime, CxxErrorStruct*);
+NSString* image_sequence_reference_target_url_for_image_number(CxxRetainer* self, int image_number, CxxErrorStruct*);
+CxxRationalTime image_sequence_reference_presentation_time_for_image_number(CxxRetainer* self, int image_number, CxxErrorStruct*);
 
 // MARK: - GeneratorReference
 NSString* generator_reference_get_generator_kind(CxxRetainer* self);

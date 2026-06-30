@@ -99,6 +99,7 @@ public class SerializableObject: CxxRetainer {
             creationFunctions["FreezeFrame"] = { FreezeFrame($0) }
             creationFunctions["Gap"] = { Gap($0) }
             creationFunctions["GeneratorReference"] = { GeneratorReference($0) }
+            creationFunctions["ImageSequenceReference"] = { ImageSequenceReference($0) }
             creationFunctions["Item"] = { Item($0) }
             creationFunctions["LinearTimeWarp"] = { LinearTimeWarp($0) }
             creationFunctions["Marker"] = { Marker($0) }

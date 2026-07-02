@@ -14,6 +14,7 @@
 #include <opentimelineio/freezeFrame.h>
 #include <opentimelineio/gap.h>
 #include <opentimelineio/generatorReference.h>
+#include <opentimelineio/imageSequenceReference.h>
 #include <opentimelineio/item.h>
 #include <opentimelineio/linearTimeWarp.h>
 #include <opentimelineio/marker.h>
@@ -141,6 +142,10 @@ void* otio_new_gap() {
 
 void* otio_new_generator_reference() {
     return new otio::GeneratorReference;
+}
+
+void* otio_new_image_sequence_reference() {
+    return new otio::ImageSequenceReference;
 }
 
 void* otio_new_item() {
@@ -772,6 +777,94 @@ NSString* external_reference_get_target_url(CxxRetainer* self) {
  
 void external_reference_set_target_url(CxxRetainer* self, NSString* target_url) {
     SO_cast<otio::ExternalReference>(self)->set_target_url([target_url UTF8String]);
+}
+
+// MARK: - ImageSequenceReference
+NSString* image_sequence_reference_get_target_url_base(CxxRetainer* self) {
+    return make_nsstring(SO_cast<otio::ImageSequenceReference>(self)->target_url_base());
+}
+
+void image_sequence_reference_set_target_url_base(CxxRetainer* self, NSString* target_url_base) {
+    SO_cast<otio::ImageSequenceReference>(self)->set_target_url_base([target_url_base UTF8String]);
+}
+
+NSString* image_sequence_reference_get_name_prefix(CxxRetainer* self) {
+    return make_nsstring(SO_cast<otio::ImageSequenceReference>(self)->name_prefix());
+}
+
+void image_sequence_reference_set_name_prefix(CxxRetainer* self, NSString* name_prefix) {
+    SO_cast<otio::ImageSequenceReference>(self)->set_name_prefix([name_prefix UTF8String]);
+}
+
+NSString* image_sequence_reference_get_name_suffix(CxxRetainer* self) {
+    return make_nsstring(SO_cast<otio::ImageSequenceReference>(self)->name_suffix());
+}
+
+void image_sequence_reference_set_name_suffix(CxxRetainer* self, NSString* name_suffix) {
+    SO_cast<otio::ImageSequenceReference>(self)->set_name_suffix([name_suffix UTF8String]);
+}
+
+int image_sequence_reference_get_start_frame(CxxRetainer* self) {
+    return SO_cast<otio::ImageSequenceReference>(self)->start_frame();
+}
+
+void image_sequence_reference_set_start_frame(CxxRetainer* self, int start_frame) {
+    SO_cast<otio::ImageSequenceReference>(self)->set_start_frame(start_frame);
+}
+
+int image_sequence_reference_get_frame_step(CxxRetainer* self) {
+    return SO_cast<otio::ImageSequenceReference>(self)->frame_step();
+}
+
+void image_sequence_reference_set_frame_step(CxxRetainer* self, int frame_step) {
+    SO_cast<otio::ImageSequenceReference>(self)->set_frame_step(frame_step);
+}
+
+double image_sequence_reference_get_rate(CxxRetainer* self) {
+    return SO_cast<otio::ImageSequenceReference>(self)->rate();
+}
+
+void image_sequence_reference_set_rate(CxxRetainer* self, double rate) {
+    SO_cast<otio::ImageSequenceReference>(self)->set_rate(rate);
+}
+
+int image_sequence_reference_get_frame_zero_padding(CxxRetainer* self) {
+    return SO_cast<otio::ImageSequenceReference>(self)->frame_zero_padding();
+}
+
+void image_sequence_reference_set_frame_zero_padding(CxxRetainer* self, int frame_zero_padding) {
+    SO_cast<otio::ImageSequenceReference>(self)->set_frame_zero_padding(frame_zero_padding);
+}
+
+int image_sequence_reference_get_missing_frame_policy(CxxRetainer* self) {
+    return SO_cast<otio::ImageSequenceReference>(self)->missing_frame_policy();
+}
+
+void image_sequence_reference_set_missing_frame_policy(CxxRetainer* self, int missing_frame_policy) {
+    SO_cast<otio::ImageSequenceReference>(self)->set_missing_frame_policy(otio::ImageSequenceReference::MissingFramePolicy(missing_frame_policy));
+}
+
+int image_sequence_reference_end_frame(CxxRetainer* self) {
+    return SO_cast<otio::ImageSequenceReference>(self)->end_frame();
+}
+
+int image_sequence_reference_number_of_images_in_sequence(CxxRetainer* self) {
+    return SO_cast<otio::ImageSequenceReference>(self)->number_of_images_in_sequence();
+}
+
+int image_sequence_reference_frame_for_time(CxxRetainer* self, CxxRationalTime time, CxxErrorStruct* cxxErr) {
+    _AutoErrorHandler aeh(cxxErr);
+    return SO_cast<otio::ImageSequenceReference>(self)->frame_for_time(otioRationalTime(time), &aeh.error_status);
+}
+
+NSString* image_sequence_reference_target_url_for_image_number(CxxRetainer* self, int image_number, CxxErrorStruct* cxxErr) {
+    _AutoErrorHandler aeh(cxxErr);
+    return make_nsstring(SO_cast<otio::ImageSequenceReference>(self)->target_url_for_image_number(image_number, &aeh.error_status));
+}
+
+CxxRationalTime image_sequence_reference_presentation_time_for_image_number(CxxRetainer* self, int image_number, CxxErrorStruct* cxxErr) {
+    _AutoErrorHandler aeh(cxxErr);
+    return cxxRationalTime(SO_cast<otio::ImageSequenceReference>(self)->presentation_time_for_image_number(image_number, &aeh.error_status));
 }
 
 // MARK: - GeneratorReference

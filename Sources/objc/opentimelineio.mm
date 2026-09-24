@@ -39,7 +39,7 @@
 #import "errorStruct.h"
 #import "CxxVectorProperty.h"
 
-namespace otio = opentimelineio::OPENTIMELINEIO_VERSION;
+namespace otio = opentimelineio::OPENTIMELINEIO_VERSION_NS;
 
 template <typename T>
 inline T* _Nonnull SO_cast(CxxRetainer const* r) {
@@ -97,11 +97,11 @@ void* otio_new_clip() {
     otio::AnyDictionary d, d2;
     d["abc"] = 123;
     d["xyz"] = 456;
-    
+
     d2["r1"] = otio::RationalTime(1,2);
     d2["r2"] = otio::RationalTime(100,200);
     d2["plugh"] = 37;
-    
+
     d["nested"] = d2;
     c->metadata() = d;
     return c;*/
@@ -193,7 +193,7 @@ void serializable_object_to_json_file(CxxRetainer* self, NSString* filename, sch
     _AutoErrorHandler aeh(cxxErr);
     otio::schema_version_map map = _to_cxx_schema_version_map(target_family_label_spec);
     self.retainer.value->to_json_file(filename.UTF8String, &aeh.error_status, &map, indent);
-    
+
 }
 
 NSString* serializable_object_to_json_string(CxxRetainer* self, schema_version_map *target_family_label_spec, int indent, CxxErrorStruct* cxxErr) {
@@ -216,7 +216,7 @@ void* serializable_object_clone(CxxRetainer* self, CxxErrorStruct* cxxErr) {
     _AutoErrorHandler aeh(cxxErr);
     return self.retainer.value->clone(&aeh.error_status);
 }
-    
+
 bool serializable_object_is_equivalent_to(CxxRetainer* lhs, CxxRetainer* rhs) {
     return lhs.retainer.value->is_equivalent_to(*rhs.retainer.value);
 }
@@ -382,7 +382,7 @@ bool item_trimmed_range_in_parent(CxxRetainer* self, CxxTimeRange* tr, CxxErrorS
     _AutoErrorHandler aeh(cxxErr);
     auto item = SO_cast<otio::Item>(self);
     auto result = item->trimmed_range_in_parent(&aeh.error_status);
-    
+
     if (result) {
         *tr = cxxTimeRange(*result);
         return true;
@@ -479,7 +479,7 @@ void clip_set_media_reference(CxxRetainer* self, CxxRetainer* media_reference) {
 CxxVectorProperty* create_composition_children_vector_property(CxxRetainer* self) {
     auto composition = SO_cast<otio::Composition>(self);
     auto p = [CxxVectorProperty new];
-    
+
     // Yes, I know: but we're not going to mutate this and neither is anybody else.
     // We're only going to look at it.
     auto& children = const_cast<std::vector<otio::SerializableObject::Retainer<otio::Composable>>&>(composition->children());
@@ -521,13 +521,13 @@ NSDictionary* composition_range_of_all_children(CxxRetainer* self, CxxErrorStruc
     auto dict = [NSMutableDictionary new];
     _AutoErrorHandler aeh(cxxErr);
     auto result = SO_cast<otio::Composition>(self)->range_of_all_children(&aeh.error_status);
-    
+
     for (auto item: result) {
         auto tr = cxxTimeRange(item.second);
         [dict setObject: [NSValue valueWithBytes:&tr objCType:@encode(CxxTimeRange)]
                  forKey: [NSValue valueWithPointer:item.first]];
     }
-    
+
     return dict;
 }
 
@@ -548,7 +548,7 @@ void composition_handles_of_child(CxxRetainer* self, CxxRetainer* composable,
                                  bool* hasLeft, bool* hasRight, CxxErrorStruct* cxxErr) {
     _AutoErrorHandler aeh(cxxErr);
     auto result = SO_cast<otio::Composition>(self)->handles_of_child(SO_cast<otio::Composable>(composable), &aeh.error_status);
-    
+
     if (result.first) {
         *hasLeft = true;
         *rt1 = cxxRationalTime(*(result.first));
@@ -556,7 +556,7 @@ void composition_handles_of_child(CxxRetainer* self, CxxRetainer* composable,
     else {
         *hasLeft = false;
     }
-    
+
     if (result.second) {
         *hasRight = true;
         *rt2 = cxxRationalTime(*(result.second));
@@ -645,27 +645,27 @@ void media_reference_clear_available_range(CxxRetainer* self) {
 // If true, value of passed in rect is set. If false, there was no media reference bounds
 bool media_reference_available_image_bounds(CxxRetainer* self, CGRect* rect) {
     std::optional<IMATH_NAMESPACE::Box2d> iBox2D = SO_cast<otio::MediaReference>(self)->available_image_bounds();
-    
+
     if (iBox2D) {
         rect->origin.x = iBox2D->min.x;
         rect->origin.y = iBox2D->min.y;
         rect->size.width = iBox2D->max.x - iBox2D->min.x;
         rect->size.height = iBox2D->max.y - iBox2D->min.y;
-        
+
         return true;
     }
-        
+
     return false;
 }
 
 void media_reference_set_available_image_bounds(CxxRetainer* self, CGRect image_bounds) {
     std::optional<IMATH_NAMESPACE::Box2d> iBox2D = std::optional<IMATH_NAMESPACE::Box2d>();
-    
+
     iBox2D->min.x = image_bounds.origin.x;
     iBox2D->min.y = image_bounds.origin.y;
     iBox2D->max.x = image_bounds.size.width + image_bounds.origin.x;
     iBox2D->max.y = image_bounds.size.height + image_bounds.origin.y;
-    
+
     SO_cast<otio::MediaReference>(self)->set_available_image_bounds(iBox2D);
 }
 
@@ -718,7 +718,7 @@ NSArray* timeline_audio_tracks(CxxRetainer* self) {
     }
     return array;
 }
-        
+
 NSArray* timeline_video_tracks(CxxRetainer* self) {
     auto array = [NSMutableArray new];
     for (auto t: SO_cast<otio::Timeline>(self)->video_tracks()) {
@@ -769,7 +769,7 @@ void effect_set_name(CxxRetainer* self, NSString* name) {
 NSString* external_reference_get_target_url(CxxRetainer* self) {
     return make_nsstring(SO_cast<otio::ExternalReference>(self)->target_url());
 }
- 
+
 void external_reference_set_target_url(CxxRetainer* self, NSString* target_url) {
     SO_cast<otio::ExternalReference>(self)->set_target_url([target_url UTF8String]);
 }
@@ -782,7 +782,7 @@ NSString* generator_reference_get_generator_kind(CxxRetainer* self) {
 void generator_reference_set_generator_kind(CxxRetainer* self, NSString* kind) {
     SO_cast<otio::GeneratorReference>(self)->set_generator_kind([kind UTF8String]);
 }
- 
+
 void* generator_reference_parameters(CxxRetainer* self) {
     return &SO_cast<otio::GeneratorReference>(self)->parameters();
 }
@@ -791,7 +791,7 @@ void* generator_reference_parameters(CxxRetainer* self) {
 double linear_time_warp_get_time_scalar(CxxRetainer* self) {
     return SO_cast<otio::LinearTimeWarp>(self)->time_scalar();
 }
- 
+
 void linear_time_warp_set_time_scalar(CxxRetainer* self, double time_scalar) {
     SO_cast<otio::LinearTimeWarp>(self)->set_time_scalar(time_scalar);
 }
@@ -806,7 +806,7 @@ void* algorithms_track_trimmed_to_range(CxxRetainer* in_track, CxxTimeRange trim
 
 void* algorithms_flatten_stack(CxxRetainer* in_stack, CxxErrorStruct* cxxErr) {
     _AutoErrorHandler aeh(cxxErr);
-    return otio::flatten_stack(SO_cast<otio::Stack>(in_stack), &aeh.error_status);    
+    return otio::flatten_stack(SO_cast<otio::Stack>(in_stack), &aeh.error_status);
 }
 
 void* algorithms_flatten_track_array(NSArray* tracks, CxxErrorStruct* cxxErr) {

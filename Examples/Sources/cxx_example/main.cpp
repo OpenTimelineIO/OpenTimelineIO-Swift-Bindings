@@ -8,7 +8,7 @@
 #include "opentime/timeRange.h"
 #include "opentimelineio/optional.h"
 
-namespace otio = opentimelineio::OPENTIMELINEIO_VERSION;
+namespace otio = opentimelineio::OPENTIMELINEIO_VERSION_NS;
 
 otio::SerializableObject* create_stuff() {
     auto x = new otio::SerializableObjectWithMetadata;
@@ -20,7 +20,7 @@ otio::SerializableObject* create_stuff() {
     x->metadata()["stuff4"] = 3.14159;
     x->metadata()["stuff5"] = opentime::RationalTime();
     x->metadata()["stuff6"] = opentime::TimeRange();
-    
+
     otio::AnyVector junk;
     junk.push_back(13);
     junk.push_back("hello");
@@ -34,4 +34,3 @@ int main() {
     std::string s = so->to_json_string(&status);
     printf("%s\n", s.c_str());
 }
-
